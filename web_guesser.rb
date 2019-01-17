@@ -22,8 +22,22 @@ def check_guess(guessing)
   return message
 end
 
+def check_color(msg)
+  if msg == ""
+    colour = "lightblue"
+  elsif msg == "Way too high!" || msg == "Way too low!"
+    colour = "red"
+  elsif msg == "Too high!" || msg == "Too low!"
+    colour = "pink"
+  else
+    colour = "lightgreen"
+  end
+  return colour
+end
+
 get "/" do
   guess = params["guess"]
   message = check_guess(guess)
-  erb :index, :locals => { :number => NUM, :message => message, :guessed => guess.to_i }
+  coloring = check_color(message)  
+  erb :index, :locals => { :number => NUM, :message => message, :guessed => guess.to_i, :color => coloring }
 end
